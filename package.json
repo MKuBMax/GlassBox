@@ -1,0 +1,32 @@
+{
+  "name": "glassbox",
+  "version": "0.0.0",
+  "private": true,
+  "description": "The transparency layer for AI agents.",
+  "type": "module",
+  "scripts": {
+    "build": "pnpm --recursive --if-present run build",
+    "check": "pnpm format:check && pnpm lint && pnpm typecheck && pnpm test && pnpm build",
+    "dev": "pnpm --filter @glassbox/web dev",
+    "format": "oxfmt --write .",
+    "format:check": "oxfmt --check .",
+    "lint": "oxlint --deny-warnings --react-plugin --jsx-a11y-plugin --vitest-plugin .",
+    "test": "vitest run --passWithNoTests",
+    "typecheck": "pnpm --recursive --if-present run typecheck"
+  },
+  "devDependencies": {
+    "@types/node": "24.13.3",
+    "@types/react": "19.2.17",
+    "@types/react-dom": "19.2.3",
+    "@vitejs/plugin-react": "6.0.3",
+    "oxfmt": "0.59.0",
+    "oxlint": "1.74.0",
+    "typescript": "6.0.2",
+    "vite": "8.1.4",
+    "vitest": "4.1.10"
+  },
+  "engines": {
+    "node": ">=24 <25"
+  },
+  "packageManager": "pnpm@11.13.1"
+}
