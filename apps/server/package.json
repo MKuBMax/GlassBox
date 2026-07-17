@@ -13,7 +13,15 @@
     }
   },
   "scripts": {
-    "build": "tsc --project tsconfig.json",
+    "build": "tsc --project tsconfig.build.json",
+    "dev": "node --watch dist/main.js",
+    "start": "node dist/main.js",
     "typecheck": "tsc --noEmit --project tsconfig.json"
+  },
+  "dependencies": {
+    "@glassbox/adapter-claude": "workspace:*",
+    "@glassbox/api-contract": "workspace:*",
+    "@glassbox/domain": "workspace:*",
+    "@glassbox/logging": "workspace:*"
   }
 }

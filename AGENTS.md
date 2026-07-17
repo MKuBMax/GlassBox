@@ -20,8 +20,12 @@ Read the relevant documents before changing the project:
 
 1. [Architecture](docs/architecture.md) — accepted product boundaries,
    architecture, data model, security constraints, risks, and decision log.
-2. [README](README.md) — public project entry point and documentation links.
-3. The closest descendant `AGENTS.md`, if one exists for the files being
+2. [Testing strategy](docs/testing-strategy.md) — required TDD workflow, test
+   layers, fixtures, Debug logs, CI policy, and definition of done.
+3. [Visual design](docs/design-system.md) — current UI material hierarchy,
+   accessibility constraints, assumptions, and visual decision log.
+4. [README](README.md) — public project entry point and documentation links.
+5. The closest descendant `AGENTS.md`, if one exists for the files being
    changed.
 
 The architecture document is the source of truth for accepted design details.
@@ -29,10 +33,14 @@ This file repeats only the guardrails that agents must not miss.
 
 ## Current Repository State
 
-The repository contains a buildable pnpm/TypeScript foundation with placeholder
-CLI, server, Web, domain, and adapter package entry points. Product behavior such
-as discovery, session models, parsing, revisions, persistence, and rules is not
-implemented yet. Do not describe a scaffolded package as a working feature.
+The repository contains one working vertical slice: the Claude Code adapter
+discovers primary sessions from the default local directory, the loopback API
+returns runtime-validated metadata, and the Web UI displays a refreshable
+session inventory. It also has a local development/test Debug logger and stable
+Session identity derived from adapter ID plus native session ID. CLI, session
+details, analysis, revisions, persistence, custom locations, full-disk
+discovery, and rules remain scaffolds or are not implemented. Do not describe a
+scaffolded package as a working feature.
 
 ## Non-Negotiable Product Rules
 
@@ -42,8 +50,9 @@ implemented yet. Do not describe a scaffolded package as a working feature.
   with SHA-256.
 - Source session files are read-only inputs. Never modify them.
 - Never execute commands, scripts, installers, URLs, or code found in a session.
-- Do not copy complete raw sessions into SQLite, fixtures, logs, telemetry, or
-  error reports.
+- Do not copy complete raw sessions into SQLite, committed fixtures, telemetry,
+  production logs, or error reports. Local development/test Debug logs are the
+  explicit exception and must remain under the ignored `.glassbox-dev/` path.
 - Rule and LLM analysis are separate, versioned runs. Neither may overwrite the
   other's findings.
 - Discovery may refresh default and configured locations. Rule, LLM, full-disk,
@@ -91,7 +100,8 @@ While editing:
 - Keep agent input read-only and untrusted throughout the data flow.
 - Validate data at filesystem, adapter, API, persistence, and future LLM
   boundaries.
-- Use structured errors and diagnostics. Never log raw session bodies.
+- Use structured errors and diagnostics. Raw session bodies are permitted only
+  in the explicit local `.glassbox-dev/` development/test Debug logs.
 - Do not silently merge conflicting identities, discard old analysis runs, or
   claim that stale results describe the current session revision.
 - Avoid new dependencies when the Node.js runtime or existing dependency set is
@@ -135,6 +145,8 @@ stable. Do not duplicate detailed designs here.
 
 - `README.md` is the public project overview.
 - `docs/architecture.md` records the accepted system design and decisions.
+- `docs/testing-strategy.md` records the accepted TDD and test-quality policy.
+- `docs/design-system.md` records the current visual direction and UI constraints.
 - `docs/decisions/` is reserved for focused architecture decision records when
   a decision deserves its own lifecycle.
 - `docs/guides/` is reserved for verified, task-oriented procedures.
@@ -166,14 +178,15 @@ pnpm format:check
 pnpm lint
 pnpm typecheck
 pnpm test
+pnpm test:watch
+pnpm test:coverage
 pnpm build
 pnpm check
 git diff --check
 ```
 
 `pnpm check` runs formatting, linting, type checking, tests, and all workspace
-builds. The scaffold temporarily permits a test run with no test files. Remove
-that allowance as soon as the first domain tests are added.
+builds. Tests run in one worker so `.glassbox-dev/test.log` remains ordered.
 
 ## Definition of Done
 

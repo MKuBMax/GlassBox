@@ -161,7 +161,7 @@ For future agents whose session is spread across multiple files, the adapter ret
 
 Evidence uses a `SourceRef` containing the source role, JSONL line or byte range, and a minimal display excerpt. This is enough to explain a finding without copying the complete session.
 
-Normalized events store fields required for filtering, rules, and aggregation. Raw message bodies remain in the original file and are loaded on demand. Sensitive raw content is not written to application logs.
+Normalized events store fields required for filtering, rules, and aggregation. Raw message bodies remain in the original file and are loaded on demand. Sensitive raw content is not written to production application logs. Local development/test Debug logs are an explicit exception and may contain raw content for diagnosis; they are ignored by Git and disabled in release builds.
 
 ## 9. Analysis state
 
@@ -194,6 +194,8 @@ Old runs are retained. The UI defaults to the run relevant to the current revisi
 ## 10. Discovery
 
 Each adapter supplies standard locations and a cheap candidate probe. For Claude Code, the adapter initially targets the known Claude Code project/session layout and identifies JSONL sessions without fully parsing their content.
+
+The first Claude Code implementation treats only direct `.jsonl` children of each project directory as primary sessions; nested subagent, workflow, and tool-result files are excluded. Inventory reads at most 256 KiB from the start of each candidate to recover the internal `sessionId`, project path, and a display title. The filename stem is an explicitly inferred identity fallback when no internal ID is available. This bounded metadata read does not hash or fully parse the session.
 
 ### Normal flow
 
@@ -409,6 +411,7 @@ Release CI builds and smoke-tests each supported OS/architecture. Packaging nati
 | LLM details deferred                                 | Choose providers and chunking now   | Product constraints are known, but implementation choices need a dedicated design                                    |
 | Native installers bundle Node                        | Require npm/Node for everyone       | Predictable runtime and one-step installation across platforms                                                       |
 | Root `AGENTS.md` is the AI documentation entry point | Pure index; duplicate full handbook | Combines a discoverable document map with stable safety guardrails while detailed design remains canonical elsewhere |
+| TDD with a simple local Debug log                    | Tests after implementation; full observability stack | Makes behavior explicit first while preserving an AI-readable failure trace without premature logging infrastructure |
 
 ## 22. Deferred design records
 

@@ -1,5 +1,5 @@
 {
-  "name": "@glassbox/adapter-claude",
+  "name": "@glassbox/api-contract",
   "version": "0.0.0",
   "private": true,
   "files": [
@@ -15,5 +15,8 @@
   "scripts": {
     "build": "tsc --project tsconfig.build.json",
     "typecheck": "tsc --noEmit --project tsconfig.json"
+  },
+  "dependencies": {
+    "zod": "4.4.3"
   }
 }

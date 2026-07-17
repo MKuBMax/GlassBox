@@ -1,5 +1,5 @@
 {
-  "name": "@glassbox/adapter-claude",
+  "name": "@glassbox/logging",
   "version": "0.0.0",
   "private": true,
   "files": [
@@ -15,5 +15,8 @@
   "scripts": {
     "build": "tsc --project tsconfig.build.json",
     "typecheck": "tsc --noEmit --project tsconfig.json"
+  },
+  "dependencies": {
+    "pino": "10.3.1"
   }
 }

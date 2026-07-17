@@ -1,13 +1,35 @@
+# Dependencies and package-manager caches
 node_modules/
+.pnpm-store/
+.npm/
+
+# Build, test, and tool output
 dist/
 coverage/
 .vite/
 *.tsbuildinfo
+*.lcov
+*.tgz
 
+# Local development diagnostics
+.glassbox-dev/
+*.log
+*.pid
+*.pid.lock
+
+# Operating-system files
 .DS_Store
 Thumbs.db
+Desktop.ini
 
-*.log
+# Editor-local files
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Local environment configuration
 .env
 .env.*
 !.env.example
