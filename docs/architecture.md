@@ -394,24 +394,24 @@ Release CI builds and smoke-tests each supported OS/architecture. Packaging nati
 
 ## 21. Decision log
 
-| Decision                                             | Alternatives considered             | Reason                                                                                                               |
-| ---------------------------------------------------- | ----------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
-| Full TypeScript stack                                | Go + TypeScript; Rust + TypeScript  | Unified types and lower AI maintenance cost fit JSON, rules, UI, and LLM orchestration                               |
-| Node local service plus browser UI                   | Electron-first desktop; CLI only    | Covers all desktop OSes and CLI automation without Chromium packaging overhead                                       |
-| Modular monolith                                     | Microservices                       | One local user and one database do not justify distributed-system cost                                               |
-| Session is the minimum unit                          | File; individual event              | Matches user intent and remains stable when a file moves or an adapter uses multiple files                           |
-| SHA-256 session revisions                            | MD5; size/mtime only                | Reliable audit identity, streamable, built into Node, resistant to intentional collisions                            |
-| Do not copy raw sessions                             | Import full sessions into SQLite    | Minimizes private-data duplication and storage use                                                                   |
-| Default discovery is automatic                       | Require path choice on first run    | Normal use should immediately show known sessions                                                                    |
-| Custom paths in Settings                             | Search-path wizard every run        | Keeps normal flow simple while supporting nonstandard layouts                                                        |
-| Full-disk discovery is explicit                      | Automatic full-disk crawl           | Avoids surprising cost and permission prompts                                                                        |
-| Analysis is user-triggered                           | Automatic rule/LLM scans            | Preserves user control over work and LLM cost/privacy                                                                |
-| Versioned immutable analysis runs                    | Two scanned/not-scanned booleans    | Correctly represents changes, failures, history, and differing rule/LLM revisions                                    |
-| First-party TypeScript rules for MVP                 | Downloadable scripts; early DSL     | Validates the engine without creating a code-execution or language-design problem                                    |
-| SQLite repository boundary                           | JSON files; external database       | Local querying and transactions without an external service; replaceable later                                       |
-| LLM details deferred                                 | Choose providers and chunking now   | Product constraints are known, but implementation choices need a dedicated design                                    |
-| Native installers bundle Node                        | Require npm/Node for everyone       | Predictable runtime and one-step installation across platforms                                                       |
-| Root `AGENTS.md` is the AI documentation entry point | Pure index; duplicate full handbook | Combines a discoverable document map with stable safety guardrails while detailed design remains canonical elsewhere |
+| Decision                                             | Alternatives considered                              | Reason                                                                                                               |
+| ---------------------------------------------------- | ---------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
+| Full TypeScript stack                                | Go + TypeScript; Rust + TypeScript                   | Unified types and lower AI maintenance cost fit JSON, rules, UI, and LLM orchestration                               |
+| Node local service plus browser UI                   | Electron-first desktop; CLI only                     | Covers all desktop OSes and CLI automation without Chromium packaging overhead                                       |
+| Modular monolith                                     | Microservices                                        | One local user and one database do not justify distributed-system cost                                               |
+| Session is the minimum unit                          | File; individual event                               | Matches user intent and remains stable when a file moves or an adapter uses multiple files                           |
+| SHA-256 session revisions                            | MD5; size/mtime only                                 | Reliable audit identity, streamable, built into Node, resistant to intentional collisions                            |
+| Do not copy raw sessions                             | Import full sessions into SQLite                     | Minimizes private-data duplication and storage use                                                                   |
+| Default discovery is automatic                       | Require path choice on first run                     | Normal use should immediately show known sessions                                                                    |
+| Custom paths in Settings                             | Search-path wizard every run                         | Keeps normal flow simple while supporting nonstandard layouts                                                        |
+| Full-disk discovery is explicit                      | Automatic full-disk crawl                            | Avoids surprising cost and permission prompts                                                                        |
+| Analysis is user-triggered                           | Automatic rule/LLM scans                             | Preserves user control over work and LLM cost/privacy                                                                |
+| Versioned immutable analysis runs                    | Two scanned/not-scanned booleans                     | Correctly represents changes, failures, history, and differing rule/LLM revisions                                    |
+| First-party TypeScript rules for MVP                 | Downloadable scripts; early DSL                      | Validates the engine without creating a code-execution or language-design problem                                    |
+| SQLite repository boundary                           | JSON files; external database                        | Local querying and transactions without an external service; replaceable later                                       |
+| LLM details deferred                                 | Choose providers and chunking now                    | Product constraints are known, but implementation choices need a dedicated design                                    |
+| Native installers bundle Node                        | Require npm/Node for everyone                        | Predictable runtime and one-step installation across platforms                                                       |
+| Root `AGENTS.md` is the AI documentation entry point | Pure index; duplicate full handbook                  | Combines a discoverable document map with stable safety guardrails while detailed design remains canonical elsewhere |
 | TDD with a simple local Debug log                    | Tests after implementation; full observability stack | Makes behavior explicit first while preserving an AI-readable failure trace without premature logging infrastructure |
 
 ## 22. Deferred design records

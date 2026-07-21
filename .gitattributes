@@ -1,0 +1,2 @@
+# Keep text files on LF across local checkouts and CI platforms.
+* text=auto eol=lf
