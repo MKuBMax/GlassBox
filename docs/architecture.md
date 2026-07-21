@@ -42,6 +42,7 @@ The first release targets individual users and Claude Code. The architecture mus
 - More agent adapters.
 - A broad, maintained security-rule library.
 - Long-session chunking and multi-pass LLM summaries.
+- Session storage-footprint insights, including local read-only visibility into usage by agent, project, and session, plus historical trends and future cleanup or archive recommendations. Any destructive or mutating action remains an explicit user operation.
 - Detailed cloud/local LLM provider design.
 - A safe declarative format for distributing rules.
 
