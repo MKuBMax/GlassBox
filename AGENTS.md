@@ -172,6 +172,7 @@ pnpm install
 The verified repository commands are:
 
 ```sh
+./dev_local.sh
 pnpm dev
 pnpm format
 pnpm format:check

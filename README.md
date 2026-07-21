@@ -18,13 +18,23 @@ implemented yet.
 
 Requirements: Node.js 24 and pnpm 11.13.1.
 
+Recommended local development startup (installs dependencies, builds the
+workspace packages and API, then starts the real API and Web development
+servers):
+
+```sh
+./dev_local.sh
+```
+
+Then open <http://localhost:5173/>. Press `Ctrl+C` to stop both services. The
+local API binds to `127.0.0.1:43110`.
+
+For lower-level package-manager commands, the equivalent manual flow is:
+
 ```sh
 pnpm install
 pnpm dev
 ```
-
-Then open <http://localhost:5173/>. The local API binds to
-`127.0.0.1:43110`.
 
 Run every quality gate with:
 
