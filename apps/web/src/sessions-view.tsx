@@ -137,7 +137,7 @@ export function SessionsView({ data, error, isRefreshing, onRefresh }: SessionsV
         <section className="hero" aria-labelledby="page-title">
           <div className="hero-copy">
             <p className="eyebrow">SESSION INVENTORY</p>
-            <h1 id="page-title">Claude Code Sessions</h1>
+            <h1 id="page-title">Sessions</h1>
             <p>
               从 Claude Code 默认目录读取会话元数据。GlassBox
               不会修改文件，也不会执行会话中的任何内容。

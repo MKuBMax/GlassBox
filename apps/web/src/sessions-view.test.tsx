@@ -20,6 +20,7 @@ describe("SessionsView", () => {
     );
 
     expect(html).toContain('<div class="app-shell">');
+    expect(html).toContain('<h1 id="page-title">Sessions</h1>');
     expect(html).not.toContain("视觉方案");
     expect(html).not.toContain("方案 1");
     expect(html).not.toContain("ambient-field");

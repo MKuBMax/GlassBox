@@ -41,7 +41,7 @@ function StatusScreen({
           <div className="status-panel" aria-live="polite" aria-label="加载状态">
             <span className="loading-mark" aria-hidden="true" />
             <p className="eyebrow">READING LOCAL METADATA</p>
-            <h1>正在查找 Claude Code Sessions</h1>
+            <h1>正在查找 Sessions</h1>
             <p>只读取默认目录中的会话元数据，请稍候。</p>
             <div className="loading-lines" aria-hidden="true">
               <span />
