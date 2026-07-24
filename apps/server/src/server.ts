@@ -1,6 +1,6 @@
 import { createServer, type ServerResponse } from "node:http";
 
-import type { ClaudeDiscoveryResult } from "@glassbox/adapter-claude";
+import type { DiscoveryResult } from "@glassbox/adapter-sdk";
 import { sessionsResponseSchema } from "@glassbox/api-contract";
 import { createSession } from "@glassbox/domain";
 
@@ -9,7 +9,7 @@ export interface ServerLogger {
 }
 
 export interface CreateGlassBoxServerOptions {
-  readonly discoverSessions: () => Promise<ClaudeDiscoveryResult>;
+  readonly discoverSessions: () => Promise<DiscoveryResult>;
   readonly logger?: ServerLogger;
   readonly now?: () => Date;
   readonly projectsRoot: string;
@@ -46,7 +46,7 @@ export function createGlassBoxServer(options: CreateGlassBoxServerOptions) {
           scannedAt: now().toISOString(),
           sessions: discovery.sessions.map((summary) => {
             const session = createSession({
-              adapterId: "claude-code",
+              adapterId: discovery.adapterId,
               nativeSessionId: summary.nativeSessionId,
               sources: [{ path: summary.sourcePath, role: "transcript" }],
             });
@@ -69,13 +69,13 @@ export function createGlassBoxServer(options: CreateGlassBoxServerOptions) {
         sendJson(response, 200, body);
       })
       .catch((error: unknown) => {
-        options.logger?.error("Claude session discovery failed", error, {
+        options.logger?.error("Session discovery failed", error, {
           projectsRoot: options.projectsRoot,
         });
         sendJson(response, 500, {
           error: {
             code: "session_discovery_failed",
-            message: "Claude Code sessions could not be loaded",
+            message: "Sessions could not be loaded",
           },
         });
       });
