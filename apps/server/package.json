@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "@glassbox/adapter-claude": "workspace:*",
+    "@glassbox/adapter-sdk": "workspace:*",
     "@glassbox/api-contract": "workspace:*",
     "@glassbox/domain": "workspace:*",
     "@glassbox/logging": "workspace:*"
