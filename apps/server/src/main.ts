@@ -11,7 +11,15 @@ const debugLog = createDebugLog({
 });
 const logger = debugLog.forModule("server");
 const server = createGlassBoxServer({
-  discoverSessions: () => discoverClaudeSessions({ projectsRoot }),
+  discoverSessions: async () => {
+    const discovery = await discoverClaudeSessions({ projectsRoot });
+
+    return {
+      adapterId: "claude-code",
+      sessions: discovery.sessions,
+      warnings: discovery.warnings,
+    };
+  },
   logger,
   projectsRoot,
 });
